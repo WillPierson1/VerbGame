@@ -9,6 +9,8 @@ import ScoreIndicator from './components/ScoreIndicator'
 import verbList from './helpers/verbList'
 import fetchVerbInfo from './helpers/fetchVerbInfo'
 
+// Functions 
+
 function getRandomVerb(){
   // Decide which verb will be used
 
@@ -22,16 +24,12 @@ async function getVerbInfo(verb){
   // Pull API data for the given verb
   try{
     const verbInfo = await fetchVerbInfo(verb);
-    
-    console.log(verb)
-    console.log(verbInfo)
-    return verbInfo;
+    return JSON.parse(verbInfo);
 
   } catch (error) {
     console.log(error);
   }
 }
-
 
 function App() {
 
