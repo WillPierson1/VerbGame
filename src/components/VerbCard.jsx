@@ -8,7 +8,7 @@ export default function VerbCard({ verb , verbInfo }) {
 
         // Loop through each input                                ----
         // Compare value of text input to value of API call       ----
-        // Put correct inputs in green text
+        // Put correct inputs in green text                       ----
         // Put correct conjugation from API next to incorrect items in input box, red text
         // Replace submit and and reset with NEXT button
         // Save to LocalStorage
@@ -21,30 +21,39 @@ export default function VerbCard({ verb , verbInfo }) {
             const userInput = verbGridInputs[i];
             const userInputValue = verbGridInputs[i].value;
 
-            console.log(verbGridInputs[i])
+            // console.log(verbGridInputs[i])
             const apiResult = (verbInfo['data']['PRASENS'][apiKeys[i]][0])
-
-
-            console.log(userInputValue);
-
-            if(userInputValue == ""){
-                console.log('1')
-            } else if (userInputValue == null){
-                console.log('2')
-            }
-
 
             if ((userInputValue != "") && (userInputValue.toUpperCase().trim() == apiResult.toUpperCase())){
                 // User answered correctly
                 userInput.style.color = '#00ff5e';
             } else if ((userInputValue != "") && (userInputValue.toUpperCase().trim() != apiResult.toUpperCase())){
                 // User answered incorrectly
-                userInput.style.color = '#fb1115';
+                userInput.style.color = '#ff491c';
+
+                // Add correct answer to screen
+                console.log('Incorrect', userInput)
+                userInput.value = userInputValue + "    Incorrect! Correct: " + apiResult;
+
             }
+
+            // Maybe this should just be a render of the verb card
+            // Then I can pass in the values given and the correct answer 
+            // To a renderVerbCheck component which would handle the checks
+            // And handle score logging ?
+            // [{Conjugation: "Gehe", Answer: Geht}, {Conjugation: "Geht", Answer: "geht"}]
+            //                Incorrect                               Correct
+
         }
 
 
+    }
 
+    function handleReset(){
+        for(let i=0; i < verbGridInputs.length; i++){
+            const userInput = verbGridInputs[i];
+            userInput.value = "";
+        }
     }
 
     return(
@@ -71,6 +80,7 @@ export default function VerbCard({ verb , verbInfo }) {
                 <div 
                 className="flex mt-5">
                     <button
+                    onClick={handleReset}
                     className="col-span-3 justify-self-center bg-red-500 p-2 m-2 w-50 rounded text-white font-bold"
                     >Reset</button>
 
