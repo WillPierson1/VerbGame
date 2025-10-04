@@ -15,20 +15,7 @@ function getRandomVerb(){
   // Decide which verb will be used
 
   const randomIndex = Math.floor(Math.random() * verbList.length);
-  // setVerb(verbList[randomIndex])
-
-  return verbList[randomIndex];
-}
-
-async function getVerbInfo(verb){
-  // Pull API data for the given verb
-  try{
-    const verbInfo = await fetchVerbInfo(verb);
-    return JSON.parse(verbInfo);
-
-  } catch (error) {
-    console.log(error);
-  }
+  return verbList[randomIndex]; // This sets the state of verb
 }
 
 function App() {
@@ -36,13 +23,13 @@ function App() {
   const [verb, setVerb] = useState(getRandomVerb()); // To be used when the submit button is pressed 
   const [verbInfo, setVerbInfo] = useState(null); // Grab data from the API based on the verb
 
-  // Set the verbInfo whenever the verb state changes
+  // // Set the verbInfo whenever the verb state changes
 
   useEffect(() => {
     async function callAPI() {
       try{
-        const verbInfo = await getVerbInfo(verb);
-        setVerbInfo(verbInfo);
+        const verbInfo = await fetchVerbInfo(verb);
+        setVerbInfo(JSON.parse(verbInfo));
       } catch (error) {
         console.log(error);
       }

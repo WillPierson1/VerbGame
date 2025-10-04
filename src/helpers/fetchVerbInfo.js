@@ -1,8 +1,12 @@
-export default function fetchVerbInfo(verb){ //verb
+import { useEffect } from "react";
+
+export default function fetchVerbInfo(verb, setVerbInfo){
 
     const requestOptions = {
         method: "GET"
     };
+
+    // API Call
 
     async function getVerbInfo(){
         try{
@@ -17,4 +21,5 @@ export default function fetchVerbInfo(verb){ //verb
     }
 
     return getVerbInfo();
+
 }

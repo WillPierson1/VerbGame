@@ -13,6 +13,7 @@ export default function VerbCard({ verb , verbInfo }) {
         // Replace submit and and reset with NEXT button
         // Save to LocalStorage
 
+        console.log(verbInfo)
         console.log(verbInfo['data']['PRASENS']);
         const apiKeys = ["S1", "S2", "S3", "P1", "P2", "P3", "P3"]
 
