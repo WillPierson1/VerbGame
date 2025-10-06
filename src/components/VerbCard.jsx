@@ -1,37 +1,42 @@
-import VerbCardCheck from "./VerbCardCheck";
 import VerbConjugation from "./VerbConjugation";
 import { motion } from "motion/react";
-import "../styles/verbcard.css";
 import { useState } from "react";
 
 export default function VerbCard({ verb, verbInfo }) {
   const [grid, setGrid] = useState(false);
+  const [answers, setAnswers] = useState([]);
 
   const verbGridInputs = document.querySelectorAll("input"); // Node list
-  const answers = [];
+  const verbCard = document.querySelector("#verbCard");
+
+  const userAnswers = [];
 
   function handleSubmit(props) {
     if (grid === false) {
       setGrid(!grid);
 
-      const apiKeys = ["S1", "S2", "S3", "P1", "P2", "P3", "P3"];
-      const verbCard = document.querySelector("#verbCard");
+      const apiKeys = ["S1", "S2", "S3", "P1", "P2", "P3"];
 
       for (let i = 0; i < verbGridInputs.length; i++) {
         const userInputValue = verbGridInputs[i].value;
+        console.log(verbGridInputs);
         const apiResult = verbInfo["data"]["PRASENS"][apiKeys[i]][0];
 
-        answers.push({
+        const elementId = verbGridInputs[i].getAttribute("id");
+
+        userAnswers.push({
+          personalPronoun: elementId.slice(6),
           Conjugation: apiResult,
           Answer: userInputValue,
         });
       }
-      console.log("Answers", answers);
+      console.log("Answers", userAnswers);
 
       verbCard.classList.remove("mx-auto");
       verbCard.classList.add("ml-auto", "mr-4");
 
-      <VerbCardCheck answers={answers} />;
+      setAnswers(userAnswers);
+      return answers;
     }
   }
 
@@ -40,6 +45,8 @@ export default function VerbCard({ verb, verbInfo }) {
       const userInput = verbGridInputs[i];
       userInput.value = "";
     }
+    verbCard.classList.add("mx-auto");
+    verbCard.classList.remove("ml-auto", "mr-4");
     setGrid(false);
   }
 
@@ -70,7 +77,7 @@ export default function VerbCard({ verb, verbInfo }) {
               <VerbConjugation personalPronoun={"wir"} />
               <VerbConjugation personalPronoun={"ihr"} />
               <VerbConjugation personalPronoun={"Sie"} />
-              <VerbConjugation personalPronoun={"Sie"} />
+              {/* <VerbConjugation personalPronoun={"Sie"} /> */}
             </div>
 
             <div className="flex mt-5">
@@ -112,13 +119,16 @@ export default function VerbCard({ verb, verbInfo }) {
               >
                 {/* Grid System For Each Personal Pronoun */}
 
-                <VerbConjugation personalPronoun={"ich"} />
-                <VerbConjugation personalPronoun={"du"} />
-                <VerbConjugation personalPronoun={"er / sie / es / man"} />
-                <VerbConjugation personalPronoun={"wir"} />
-                <VerbConjugation personalPronoun={"ihr"} />
-                <VerbConjugation personalPronoun={"Sie"} />
-                <VerbConjugation personalPronoun={"Sie"} />
+                <VerbConjugation personalPronoun={"ich"} answer={{ answers }} />
+                <VerbConjugation personalPronoun={"du"} answer={{ answers }} />
+                <VerbConjugation
+                  personalPronoun={"er / sie / es / man"}
+                  answer={{ answers }}
+                />
+                <VerbConjugation personalPronoun={"wir"} answer={{ answers }} />
+                <VerbConjugation personalPronoun={"ihr"} answer={{ answers }} />
+                <VerbConjugation personalPronoun={"Sie"} answer={{ answers }} />
+                {/* <VerbConjugation personalPronoun={"Sie"} answer={{ answers }} /> */}
               </div>
 
               <div className="flex mt-5">
