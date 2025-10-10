@@ -11,7 +11,7 @@ export default function VerbCard({ verb, verbInfo }) {
 
   const userAnswers = [];
 
-  function handleSubmit(props) {
+  const handleSubmit = (props) => {
     if (grid === false) {
       setGrid(!grid);
 
@@ -20,7 +20,8 @@ export default function VerbCard({ verb, verbInfo }) {
       for (let i = 0; i < verbGridInputs.length; i++) {
         const userInputValue = verbGridInputs[i].value;
         console.log(verbGridInputs);
-        const apiResult = verbInfo["data"]["PRASENS"][apiKeys[i]][0];
+        console.log(verbInfo);
+        const apiResult = verbInfo["data"]["PRASENS"][apiKeys[i]];
 
         const elementId = verbGridInputs[i].getAttribute("id");
 
@@ -38,7 +39,7 @@ export default function VerbCard({ verb, verbInfo }) {
       setAnswers(userAnswers);
       return answers;
     }
-  }
+  };
 
   function handleReset() {
     for (let i = 0; i < verbGridInputs.length; i++) {
@@ -60,7 +61,7 @@ export default function VerbCard({ verb, verbInfo }) {
         >
           <div
             id="verbCard"
-            className="verb-card-not-submitted col-span-2 mx-auto w-fit p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+            className="verb-card-not-submitted col-span-2 md:mx-auto mx-10 md:w-fit w-fill p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
           >
             <h5 className="mb-5 text-2xl text-center font-bold tracking-tight text-gray-900 dark:text-white">
               {verb}
@@ -71,17 +72,17 @@ export default function VerbCard({ verb, verbInfo }) {
             >
               {/* Grid System For Each Personal Pronoun */}
 
-              <VerbConjugation personalPronoun={"ich"} />
+              <VerbConjugation personalPronoun={"ich"} submit={handleSubmit} />
               <VerbConjugation personalPronoun={"du"} />
               <VerbConjugation personalPronoun={"er / sie / es / man"} />
               <VerbConjugation personalPronoun={"wir"} />
               <VerbConjugation personalPronoun={"ihr"} />
               <VerbConjugation personalPronoun={"Sie"} />
-              {/* <VerbConjugation personalPronoun={"Sie"} /> */}
             </div>
 
-            <div className="flex mt-5">
+            <div className="flex justify-evenly mt-5">
               <button
+                id="reset"
                 onClick={handleReset}
                 className="col-span-3 justify-self-center bg-red-500 p-2 m-2 w-50 rounded text-white font-bold"
               >
@@ -89,6 +90,7 @@ export default function VerbCard({ verb, verbInfo }) {
               </button>
 
               <button
+                id="submit"
                 onClick={handleSubmit}
                 className="col-span-3 justify-self-center bg-green-600 p-2 m-2 w-50 rounded text-white font-bold"
               >
@@ -108,7 +110,7 @@ export default function VerbCard({ verb, verbInfo }) {
           >
             <div
               id="verbCard"
-              className="verb-card-not-submitted col-span-2 mr-auto ml-4 w-fit p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+              className="verb-card-not-submitted col-span-2 h-full mr-auto ml-4 w-fit p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
             >
               <h5 className="mb-5 text-2xl text-center font-bold tracking-tight text-gray-900 dark:text-white">
                 Scorecard
@@ -118,7 +120,6 @@ export default function VerbCard({ verb, verbInfo }) {
                 className="font-normal text-gray-700 dark:text-gray-400 grid grid-cols-3 gap-4"
               >
                 {/* Grid System For Each Personal Pronoun */}
-
                 <VerbConjugation personalPronoun={"ich"} answer={{ answers }} />
                 <VerbConjugation personalPronoun={"du"} answer={{ answers }} />
                 <VerbConjugation
@@ -128,23 +129,6 @@ export default function VerbCard({ verb, verbInfo }) {
                 <VerbConjugation personalPronoun={"wir"} answer={{ answers }} />
                 <VerbConjugation personalPronoun={"ihr"} answer={{ answers }} />
                 <VerbConjugation personalPronoun={"Sie"} answer={{ answers }} />
-                {/* <VerbConjugation personalPronoun={"Sie"} answer={{ answers }} /> */}
-              </div>
-
-              <div className="flex mt-5">
-                <button
-                  onClick={handleReset}
-                  className="col-span-3 justify-self-center bg-red-500 p-2 m-2 w-50 rounded text-white font-bold"
-                >
-                  Reset
-                </button>
-
-                <button
-                  onClick={handleSubmit}
-                  className="col-span-3 justify-self-center bg-green-600 p-2 m-2 w-50 rounded text-white font-bold"
-                >
-                  Submit
-                </button>
               </div>
             </div>
           </motion.div>

@@ -1,4 +1,6 @@
-export default function VerbConjugation({ personalPronoun, answer }) {
+export default function VerbConjugation({ personalPronoun, answer, submit }) {
+  console.log("Submit prop:", submit);
+  console.log("Type of submit:", typeof submit);
   const inputId = "input-" + personalPronoun;
 
   // isScoreCard ?
@@ -8,11 +10,22 @@ export default function VerbConjugation({ personalPronoun, answer }) {
   }
 
   function getAnswer(props) {
+    // Handle Answer
+
     for (const [key, value] of Object.entries(answer["answers"])) {
       // console.log(`Key: ${key}, Value: ${JSON.stringify(value)}`);
 
       // console.log(value["personalPronoun"]);
       if (value["personalPronoun"] == personalPronoun) {
+        if (personalPronoun == "ich") {
+          // Remove buttons
+
+          const resetButton = document.getElementById("reset");
+          const submitButton = document.getElementById("submit");
+          resetButton.remove();
+          submitButton.remove();
+        }
+
         console.log("THIS", personalPronoun);
 
         if (value["Answer"] == value["Conjugation"]) {
@@ -63,7 +76,10 @@ export default function VerbConjugation({ personalPronoun, answer }) {
 
       {!answer && (
         <>
-          <p className="justify-self-center self-center pronoun">
+          <p
+            className="justify-self-center self-center pronoun"
+            // onKeyDown={}
+          >
             {" "}
             {personalPronoun}{" "}
           </p>
@@ -71,7 +87,7 @@ export default function VerbConjugation({ personalPronoun, answer }) {
           <input
             className="bg-gray-500 opacity-70 text-gray-400 dark:text-gray-200 p-2 rounded col-span-2"
             type="text"
-            name="input-ich"
+            name="input"
             id={inputId}
             placeholder="Enter the correct conjugation"
           />
