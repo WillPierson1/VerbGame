@@ -1,6 +1,11 @@
-export default function VerbConjugation({ personalPronoun, answer, submit }) {
-  console.log("Submit prop:", submit);
-  console.log("Type of submit:", typeof submit);
+export default function VerbConjugation({
+  personalPronoun,
+  answer,
+  submit,
+  width,
+}) {
+  // console.log("Submit prop:", submit);
+  // console.log("Type of submit:", typeof submit);
   const inputId = "input-" + personalPronoun;
 
   // isScoreCard ?
@@ -16,7 +21,8 @@ export default function VerbConjugation({ personalPronoun, answer, submit }) {
       // console.log(`Key: ${key}, Value: ${JSON.stringify(value)}`);
 
       // console.log(value["personalPronoun"]);
-      if (value["personalPronoun"] == personalPronoun) {
+      if (value["personalPronoun"] == personalPronoun && width > 500) {
+        // Handle with here!
         if (personalPronoun == "ich") {
           // Remove buttons
 
