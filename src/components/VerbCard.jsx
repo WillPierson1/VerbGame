@@ -37,6 +37,9 @@ export default function VerbCard({ verb, verbInfo }) {
         });
       }
 
+      // Remove buttons here!
+      props.target.parentElement.remove();
+
       console.log("Answers", userAnswers);
 
       verbCard.classList.remove("mx-auto");

@@ -10,28 +10,15 @@ export default function VerbConjugation({
 
   // isScoreCard ?
   if (answer) {
-    // console.log(answer["answers"]);
-    // console.log(personalPronoun);
+    console.log(answer["answers"]);
+    console.log(personalPronoun);
   }
 
   function getAnswer(props) {
     // Handle Answer
 
     for (const [key, value] of Object.entries(answer["answers"])) {
-      // console.log(`Key: ${key}, Value: ${JSON.stringify(value)}`);
-
-      // console.log(value["personalPronoun"]);
-      if (value["personalPronoun"] == personalPronoun && width > 500) {
-        // Handle with here!
-        if (personalPronoun == "ich") {
-          // Remove buttons
-
-          const resetButton = document.getElementById("reset");
-          const submitButton = document.getElementById("submit");
-          resetButton.remove();
-          submitButton.remove();
-        }
-
+      if (value["personalPronoun"] == personalPronoun) {
         console.log("THIS", personalPronoun);
 
         if (value["Answer"] == value["Conjugation"]) {
